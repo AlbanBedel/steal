@@ -6,3 +6,5 @@ build/apps/test/multibuild/*/*.production.js
 build/apps/test/multibuild/*/*.production.css
 less/test/production.js
 less/test/production.css
+build/js/shrinksafe.jar
+build/js/yuicompressor.jar
