@@ -19,14 +19,7 @@ steal('steal','steal/parse',function(steal, parse){
 	js.clean = function( text ) {
 		var parsedTxt = String(java.lang.String(text)
 			.replaceAll("(?s)\/\/!steal-remove-start(.*?)\/\/!steal-remove-end", ""));
-		
-		// the next part is slow, try to skip if possible
-		// if theres not a standalone steal.dev, skip
 
-		if(! stealDevTest.test(parsedTxt) ) {
-			return parsedTxt;
-		}	
-		
 		var positions = [],
 		   	p,
 		    tokens, 
@@ -41,8 +34,13 @@ steal('steal','steal/parse',function(steal, parse){
 			return parsedTxt;
 		}
 
-		while (tokens = p.until(["steal", ".", "dev", ".", "log", "("], ["steal", ".", "dev", ".", "warn", "("])) {
-			var end = p.partner("(");
+		while (tokens = p.until(["steal", ".", "dev", ".", "log", "("], ["steal", ".", "dev", ".", "warn", "("],
+								[",", "}"], [",", "]"])) {
+			var end;
+			if (tokens[0].value === ',')
+				end = tokens[0];
+			else
+				end = p.partner("(");
 			positions.push({
 				start: tokens[0].from,
 				end: end.to
