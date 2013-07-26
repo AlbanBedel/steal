@@ -102,7 +102,7 @@ steal('steal','steal/parse',function(steal, parse){
 			var URLClassLoader = Packages.java.net.URLClassLoader,
 				URL = java.net.URL,
 				File = java.io.File,
-				ss = new File("steal/build/javascripts/shrinksafe.jar"),
+				ss = new File("steal/build/js/shrinksafe.jar"),
 				ssurl = ss.toURL(),
 				urls = java.lang.reflect.Array.newInstance(URL, 1);
 			urls[0] = new URL(ssurl);
