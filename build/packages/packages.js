@@ -252,6 +252,17 @@ steal('steal',
 					s.print("         "+destCSS);
 					s.URI(destCSS).save( filterCode(pack.css.code, 'css') );
 				}
+				if (true) {
+					var depsFile = ''+steal.URI(buildOptions.to).join('production.dep');
+					var makeDeps = ''+steal.URI("$(BUILD_DIR)").join('production.js') + ": \\\n";
+					for (var i in masterFiles) {
+						var f = masterFiles[i].stealOpts;
+						if (f.id != null && f.packaged !== false)
+							makeDeps += "\t" + steal.URI("$(APP_DIR)").join(s.idToUri(f.id)) + " \\\n";
+					}
+					makeDeps += "\n";
+					s.URI(depsFile).save(makeDeps);
+                                }
 			});
 		});
 	};
